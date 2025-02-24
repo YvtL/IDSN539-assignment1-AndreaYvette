@@ -1,0 +1,4 @@
+The model uses textures from the following sources:
+---------------------------------------------------
+ 
+https://www.cgbookcase.com
