@@ -1,16 +1,24 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI; // Or using TMPro if using TextMeshPro
 
 public class PaintingInteraction : MonoBehaviour
 {
-    public GameObject paintingUI;  // Assign the PaintingCanvas to this in the Inspector
+    public GameObject paintingUI;  // The main painting zoom UI
+    public GameObject hintCanvas;  // The hint canvas with "Press E to pick up"
     private bool isPlayerInTrigger = false;
+
+    void Start()
+    {
+        paintingUI.SetActive(false);  // Ensure the painting UI is also hidden by default
+        hintCanvas.SetActive(false);  // Hide the hint canvas on game start
+    }
 
     void Update()
     {
         if (isPlayerInTrigger && Input.GetKeyDown(KeyCode.E))
         {
             paintingUI.SetActive(true);  // Show the painting
+            hintCanvas.SetActive(false); // Hide hint when painting is picked up
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) && paintingUI.activeSelf)
@@ -24,7 +32,7 @@ public class PaintingInteraction : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInTrigger = true;
-            // Optionally show some UI hint that player can press 'E'
+            hintCanvas.SetActive(true);  // Show the hint canvas
         }
     }
 
@@ -33,7 +41,7 @@ public class PaintingInteraction : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInTrigger = false;
-            // Optionally hide the UI hint
+            hintCanvas.SetActive(false);  // Hide the hint canvas
             paintingUI.SetActive(false);  // Also hide the painting when player leaves the trigger
         }
     }
